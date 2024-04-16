@@ -21,9 +21,13 @@ export default function FoodDetailsScreen() {
     dispatch(favourites(item.id));
   };
   function averageRating(feedbacks) {
-    if (feedbacks.length === 0) return 0;
-    const sum = feedbacks.reduce((acc, { rating }) => acc + rating, 0);
-    return (sum / feedbacks.length).toFixed(1);
+    console.log(feedbacks);
+    if (feedbacks === undefined) return 0;
+    {
+      if (feedbacks.length === 0) return 0;
+      const sum = feedbacks.reduce((acc, { rating }) => acc + rating, 0);
+      return (sum / feedbacks.length).toFixed(1);
+    }
   }
   return (
     <View className="flex-1 relative  bg-white">
@@ -114,33 +118,38 @@ export default function FoodDetailsScreen() {
                   startingValue={averageRating(item.feedbacks)}
                 />
               </Text>
-              <Text className="text-sm text-gray-600 ml-2">
-                ({item.feedbacks.length} reviews)
-              </Text>
+              {item.feedbacks !== undefined && (
+                <>
+                  <Text className="text-sm text-gray-600 ml-2">
+                    ({item.feedbacks.length} reviews)
+                  </Text>
+                </>
+              )}
             </View>
 
-            {item.feedbacks.map((feedback, index) => {
-              return (
-                <View
-                  key={index}
-                  className="border-b border-gray-300 mt-2 pb-2  "
-                >
-                  <Text className="font-bold text-black ">
-                    {feedback.author}
-                  </Text>
-                  <Text className="text-sm text-gray-500">
-                    {feedback.comment}
-                  </Text>
-                  <Text>
-                    <Rating
-                      imageSize={20}
-                      readonly
-                      startingValue={feedback.rating}
-                    />
-                  </Text>
-                </View>
-              );
-            })}
+            {item.feedbacks !== undefined &&
+              item.feedbacks.map((feedback, index) => {
+                return (
+                  <View
+                    key={index}
+                    className="border-b border-gray-300 mt-2 pb-2  "
+                  >
+                    <Text className="font-bold text-black ">
+                      {feedback.author}
+                    </Text>
+                    <Text className="text-sm text-gray-500">
+                      {feedback.comment}
+                    </Text>
+                    <Text>
+                      <Rating
+                        imageSize={20}
+                        readonly
+                        startingValue={feedback.rating}
+                      />
+                    </Text>
+                  </View>
+                );
+              })}
           </View>
         </ScrollView>
       </SafeAreaView>

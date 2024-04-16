@@ -53,7 +53,7 @@ const HomeScreen = () => {
             style={{ backgroundColor: "rgba(255,255,255,0.7)", padding: 3 }}
           >
             <Image
-              className="h-12 w-12 rounded-3xl"
+              className="h-12 w-12 rounded-2xl"
               source={{
                 uri: "https://storage.googleapis.com/cdn-entrade/bovagau-meme/screenshot_93_1682412512",
               }}
